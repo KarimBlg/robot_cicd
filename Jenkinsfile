@@ -11,7 +11,8 @@ pipeline {
 
         stage('Compile project') {
             steps {
-                sh "pip3 install -r requirements.txt --u"
+                sh "pip freeze > requierements.txt"
+                sh "pip3 install -r requirements.txt"
                 sh "pip list"
             }
         }
