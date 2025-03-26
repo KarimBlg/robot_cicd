@@ -1,14 +1,14 @@
 pipeline {
     agent {
         docker {
-            image 'ppodgorsek/robot-framework'
+            image 'python:3.11'
         }
     }
 
     stages {
         stage('Install python'){
                 steps {
-                //sh'pip freeze > requirements.txt'
+                sh'pip freeze > requirements.txt'
                 sh ' python3 -m pip install -r requirements.txt'
             }
         }
