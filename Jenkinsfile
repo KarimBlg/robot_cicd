@@ -21,7 +21,6 @@ pipeline {
         }
         stage('Publish Robot Reports') {
             steps {
-                // Publication des rapports Robot Framework dans Jenkins
                 publishHTML(target: [
                     allowMissing: true,
                     alwaysLinkToLastBuild: true,
@@ -32,11 +31,25 @@ pipeline {
                 ])
             }
         }
+        
+        stage('Generate Allure Report') {
+            steps {
+                sh 'allure generate results -o results/allure-report --clean'
+            }
+        }
+        
+        stage('Publish Allure Report') {
+            steps {
+                allure([
+                    results: [[path: 'results']],
+                    reportBuildPolicy: 'ALWAYS'
+                ])
+            }
+        }
     }
-    
+
     post {
         always {
-            // Archive des rapports après l'exécution des tests
             archiveArtifacts artifacts: 'results/*', fingerprint: true
         }
     }
