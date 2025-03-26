@@ -1,22 +1,24 @@
 pipeline {
     agent {
         docker {
-            image 'python:3.11'
+            image 'ppodgorsek/robot-framework'
         }
     }
-   
 
     stages {
-
-        stage('Compile project') {
-            steps {
-                sh"python3 -m venv venv"
-                //sh "pip freeze > requierements.txt"
-                sh "pip3 install -r requirements.txt"
-                sh "pip list"
+        stage('Install python'){
+                steps {
+                sh'pip freeze > requirements.txt'
+                sh ' python3 -m pip install -r requirements.txt'
             }
         }
-
-    }
     
+    stage('Run Selenium Tests') {
+            steps {
+                // Exécution des tests avec Selenium
+                sh  'python3 -m robot tests/login_data.robot'
+            }
+    }
+    }
+
 }
