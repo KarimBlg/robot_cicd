@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Install python'){
                 steps {
-                sh'pip freeze > requirements.txt'
+                //sh'pip freeze > requirements.txt'
                 sh ' python3 -m pip install -r requirements.txt'
             }
         }
