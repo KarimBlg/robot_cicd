@@ -11,7 +11,7 @@ pipeline {
 
         stage('Compile project') {
             steps {
-                sh "pip3 install -r requirements.txt"
+                sh "sudo pip3 install -r requirements.txt"
                 sh "pip list"
             }
         }
